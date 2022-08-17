@@ -55,7 +55,6 @@ public class MainScreen extends javax.swing.JFrame {
         panelEmptyList.setBackground(new java.awt.Color(255, 255, 255));
 
         labelEmptyListIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelEmptyListIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lists.png"))); // NOI18N
 
         labelEmptyListTitle.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
         labelEmptyListTitle.setForeground(new java.awt.Color(0, 153, 102));
@@ -108,8 +107,6 @@ public class MainScreen extends javax.swing.JFrame {
         labelSubtitle.setForeground(new java.awt.Color(255, 255, 255));
         labelSubtitle.setText("Anote tudo, não esqueça nada!");
 
-        labelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tick.png"))); // NOI18N
-
         javax.swing.GroupLayout panelTitleBarLayout = new javax.swing.GroupLayout(panelTitleBar);
         panelTitleBar.setLayout(panelTitleBarLayout);
         panelTitleBarLayout.setHorizontalGroup(
@@ -121,7 +118,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSubtitle)
                     .addComponent(labelTitle))
-                .addContainerGap(594, Short.MAX_VALUE))
+                .addContainerGap(338, Short.MAX_VALUE))
         );
         panelTitleBarLayout.setVerticalGroup(
             panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +142,6 @@ public class MainScreen extends javax.swing.JFrame {
         labelProjectsTitle.setText("Projetos");
 
         labelProjectsIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelProjectsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         labelProjectsIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelProjectsIconMouseClicked(evt);
@@ -181,7 +177,6 @@ public class MainScreen extends javax.swing.JFrame {
         labelTasksTitle.setText("Tarefas");
 
         labelTasksIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTasksIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
 
         javax.swing.GroupLayout panelTasksLayout = new javax.swing.GroupLayout(panelTasks);
         panelTasks.setLayout(panelTasksLayout);
@@ -233,7 +228,7 @@ public class MainScreen extends javax.swing.JFrame {
             panelProjectsListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProjectsListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanelProjects)
+                .addComponent(scrollPanelProjects, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -280,11 +275,11 @@ public class MainScreen extends javax.swing.JFrame {
         panelContentsTask.setLayout(panelContentsTaskLayout);
         panelContentsTaskLayout.setHorizontalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelTasks)
+            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
         );
         panelContentsTaskLayout.setVerticalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelContentsLayout = new javax.swing.GroupLayout(panelContents);

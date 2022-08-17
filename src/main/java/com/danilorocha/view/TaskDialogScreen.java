@@ -61,7 +61,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -79,10 +79,12 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         jPanel2.setBackground(java.awt.Color.white);
 
         jLabel3.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(162, 162, 162));
         jLabel3.setText("Nome");
 
         jTextField1.setBackground(java.awt.Color.white);
         jTextField1.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        jTextField1.setForeground(java.awt.Color.white);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -90,6 +92,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         });
 
         jLabel4.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(162, 162, 162));
         jLabel4.setText("Descrição");
 
         jTextArea1.setBackground(java.awt.Color.white);
@@ -105,7 +108,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -128,10 +131,12 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         jPanel3.setBackground(java.awt.Color.white);
 
         jLabel5.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(162, 162, 162));
         jLabel5.setText("Prazo");
 
         jTextField2.setBackground(java.awt.Color.white);
         jTextField2.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        jTextField2.setForeground(java.awt.Color.white);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -139,6 +144,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         });
 
         jLabel6.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(162, 162, 162));
         jLabel6.setText("Notas");
 
         jTextArea2.setBackground(java.awt.Color.white);
@@ -154,7 +160,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -170,7 +176,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

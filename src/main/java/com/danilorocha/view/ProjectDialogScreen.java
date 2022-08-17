@@ -5,6 +5,8 @@
 package com.danilorocha.view;
 
 import com.danilorocha.controllers.ProjectController;
+import com.danilorocha.entities.Project;
+import static com.danilorocha.entities.Project.newProject;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author danilo
  */
 public class ProjectDialogScreen extends javax.swing.JDialog {
-    
+
     ProjectController projectController;
 
     /**
@@ -161,14 +163,14 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         // TODO add your handling code here:
         String name = inputNameProject.getText();
         String description = textAreaDescriptionProject.getText();
-                
-        if(inputIsOk(name, description)) {
-            System.out.println("DEU CERTO");
-        } else {
-            System.out.println("NÃO DEU CERTO");
-        }                  
-        
-        this.dispose();
+
+        if (checkInputs(name, description)) {
+            Project project = newProject(name, description);
+            //projectController.save(project);
+            System.out.println("Deu certo "+ project);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_labelSaveProjectMouseClicked
 
     /**
@@ -225,15 +227,15 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
     private javax.swing.JTextArea textAreaDescriptionProject;
     // End of variables declaration//GEN-END:variables
 
-    private boolean inputIsOk(String name, String description) {
-         if(name.isBlank())
+    private boolean checkInputs(String name, String description) {
+        if (name.isBlank()) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do projeto");
-        else if(description.isBlank())
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição");
-        else
             return false;
-                
+        } else if (description.isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a descrição");
+            return false;
+        }
         return true;
-    }
-    
-}
+    }//checkInputs
+
+}//class
