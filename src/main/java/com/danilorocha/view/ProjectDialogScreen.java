@@ -166,7 +166,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 
         if (checkInputs(name, description)) {
             Project project = newProject(name, description);
-            //projectController.save(project);
+            projectController.save(project);
             System.out.println("Deu certo "+ project);
             this.dispose();
         }

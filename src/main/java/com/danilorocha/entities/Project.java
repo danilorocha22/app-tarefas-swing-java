@@ -1,7 +1,6 @@
 package com.danilorocha.entities;
 
-import java.time.Instant;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -9,31 +8,31 @@ public class Project {
     private final Long id;
     private final String name;
     private final String description;
-    private final Instant createDate;
-    private final Instant updateDate;
-    
-    private Project(Long id, String name, String description, Instant createDate,
-            Instant updateDate) {
+    private final LocalDateTime createDate;
+    private final LocalDateTime updateDate;
+
+    private Project(Long id, String name, String description, LocalDateTime createDate,
+                    LocalDateTime updateDate) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
-    
+
     private Project(String name, String description) {
         this.id = null;
         this.name = name;
         this.description = description;
-        this.createDate = Instant.now();
-        this.updateDate = Instant.now();
+        this.createDate = LocalDateTime.now();
+        this.updateDate = LocalDateTime.now();
     }
-    
+
     public static Project newProject(Long id, String name, String description,
-            Instant createDate, Instant updateDate) {
+                                     LocalDateTime createDate, LocalDateTime updateDate) {
         return new Project(id, name, description, createDate, updateDate);
     }
-    
+
     public static Project newProject(String name, String description) {
         return new Project(name, description);
     }
@@ -51,17 +50,17 @@ public class Project {
     }
 
 
-    public Instant getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public Instant getUpdateDate() {
+    public LocalDateTime getUpdateDate() {
         return updateDate;
     }
 
     @Override
     public String toString() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return "Project{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +

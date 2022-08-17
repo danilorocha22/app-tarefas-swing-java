@@ -7,11 +7,8 @@
     <list default="true" id="ae6ab47e-c54c-4432-9ad5-78cf5daa5633" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/entities/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/entities/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/repositories/ProjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/repositories/ProjectRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/ProjectDialogScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/ProjectDialogScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +90,7 @@
     </configuration>
     <configuration name="MainScreen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.danilorocha.view.MainScreen" />
-      <module name="app-tarefas-swing-java" />
+      <module name="todo-app" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.danilorocha.view.*" />
@@ -145,6 +142,7 @@
       <workItem from="1660611962254" duration="29000" />
       <workItem from="1660755547299" duration="3410000" />
       <workItem from="1660759216160" duration="966000" />
+      <workItem from="1660778547642" duration="734000" />
     </task>
     <servers />
   </component>
