@@ -4,6 +4,9 @@
  */
 package com.danilorocha.view;
 
+import java.awt.Color;
+import java.awt.Font;
+
 /**
  *
  * @author danilo
@@ -15,6 +18,7 @@ public class MainScreen extends javax.swing.JFrame {
      */
     public MainScreen() {
         initComponents();
+        decorateTableTask();
     }
 
     /**
@@ -31,7 +35,7 @@ public class MainScreen extends javax.swing.JFrame {
         labelEmptyListTitle = new javax.swing.JLabel();
         labelEmptyListSubtitle = new javax.swing.JLabel();
         panelContents = new javax.swing.JPanel();
-        panelTitle = new javax.swing.JPanel();
+        panelTitleBar = new javax.swing.JPanel();
         labelTitle = new javax.swing.JLabel();
         labelSubtitle = new javax.swing.JLabel();
         labelIcon = new javax.swing.JLabel();
@@ -45,8 +49,8 @@ public class MainScreen extends javax.swing.JFrame {
         scrollPanelProjects = new javax.swing.JScrollPane();
         listProjects = new javax.swing.JList<>();
         panelContentsTask = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        scrollPanelTasks = new javax.swing.JScrollPane();
+        tableTasks = new javax.swing.JTable();
 
         panelEmptyList.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -93,8 +97,8 @@ public class MainScreen extends javax.swing.JFrame {
         panelContents.setBackground(java.awt.Color.white);
         panelContents.setName(""); // NOI18N
 
-        panelTitle.setBackground(new java.awt.Color(0, 153, 102));
-        panelTitle.setBorder(new javax.swing.border.MatteBorder(null));
+        panelTitleBar.setBackground(new java.awt.Color(0, 153, 102));
+        panelTitleBar.setBorder(new javax.swing.border.MatteBorder(null));
 
         labelTitle.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 36)); // NOI18N
         labelTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,26 +110,26 @@ public class MainScreen extends javax.swing.JFrame {
 
         labelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tick.png"))); // NOI18N
 
-        javax.swing.GroupLayout panelTitleLayout = new javax.swing.GroupLayout(panelTitle);
-        panelTitle.setLayout(panelTitleLayout);
-        panelTitleLayout.setHorizontalGroup(
-            panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTitleLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelTitleBarLayout = new javax.swing.GroupLayout(panelTitleBar);
+        panelTitleBar.setLayout(panelTitleBarLayout);
+        panelTitleBarLayout.setHorizontalGroup(
+            panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTitleBarLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(labelIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSubtitle)
                     .addComponent(labelTitle))
-                .addContainerGap(731, Short.MAX_VALUE))
+                .addContainerGap(594, Short.MAX_VALUE))
         );
-        panelTitleLayout.setVerticalGroup(
-            panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTitleLayout.createSequentialGroup()
+        panelTitleBarLayout.setVerticalGroup(
+            panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTitleBarLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelIcon)
-                    .addGroup(panelTitleLayout.createSequentialGroup()
+                    .addGroup(panelTitleBarLayout.createSequentialGroup()
                         .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelSubtitle)))
@@ -142,6 +146,11 @@ public class MainScreen extends javax.swing.JFrame {
 
         labelProjectsIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelProjectsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
+        labelProjectsIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelProjectsIconMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProjectsLayout = new javax.swing.GroupLayout(panelProjects);
         panelProjects.setLayout(panelProjectsLayout);
@@ -207,9 +216,8 @@ public class MainScreen extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         listProjects.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listProjects.setFixedCellHeight(50);
+        listProjects.setFixedCellHeight(40);
         listProjects.setSelectionBackground(new java.awt.Color(0, 153, 102));
-        listProjects.setSelectionForeground(new java.awt.Color(255, 255, 255));
         scrollPanelProjects.setViewportView(listProjects);
 
         javax.swing.GroupLayout panelProjectsListLayout = new javax.swing.GroupLayout(panelProjectsList);
@@ -225,15 +233,18 @@ public class MainScreen extends javax.swing.JFrame {
             panelProjectsListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProjectsListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanelProjects, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                .addComponent(scrollPanelProjects)
                 .addContainerGap())
         );
 
         panelContentsTask.setBackground(java.awt.Color.white);
         panelContentsTask.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setBackground(java.awt.Color.white);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        scrollPanelTasks.setBackground(java.awt.Color.white);
+
+        tableTasks.setBackground(java.awt.Color.white);
+        tableTasks.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 12)); // NOI18N
+        tableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -241,20 +252,39 @@ public class MainScreen extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "Descrição", "Prazo", "Tarefa Concluída"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableTasks.setGridColor(java.awt.Color.white);
+        tableTasks.setRowHeight(40);
+        tableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        tableTasks.setShowVerticalLines(false);
+        scrollPanelTasks.setViewportView(tableTasks);
 
         javax.swing.GroupLayout panelContentsTaskLayout = new javax.swing.GroupLayout(panelContentsTask);
         panelContentsTask.setLayout(panelContentsTaskLayout);
         panelContentsTaskLayout.setHorizontalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(scrollPanelTasks)
         );
         panelContentsTaskLayout.setVerticalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelContentsLayout = new javax.swing.GroupLayout(panelContents);
@@ -264,7 +294,7 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(panelContentsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelContentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTitleBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContentsLayout.createSequentialGroup()
                         .addGroup(panelContentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelProjects, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -279,7 +309,7 @@ public class MainScreen extends javax.swing.JFrame {
             panelContentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContentsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelTitleBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelContentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelProjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,18 +329,31 @@ public class MainScreen extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelContents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(panelContents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void labelProjectsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelProjectsIconMouseClicked
+        // TODO add your handling code here:
+        ProjectDialogScreen dialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
+        dialogScreen.setVisible(true);
+    }//GEN-LAST:event_labelProjectsIconMouseClicked
+    
+    public void decorateTableTask() {
+        tableTasks.getTableHeader().setFont(new Font("DejaVu Sans Condensed", Font.BOLD, 14));
+        tableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
+        tableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
+        tableTasks.setAutoCreateRowSorter(true);
+        
+    }//decorateTableTask
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -318,7 +361,7 @@ public class MainScreen extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Java swing".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -340,11 +383,10 @@ public class MainScreen extends javax.swing.JFrame {
                 new MainScreen().setVisible(true);
             }
         });
-    }
+        
+    }//main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelEmptyListIcon;
     private javax.swing.JLabel labelEmptyListSubtitle;
     private javax.swing.JLabel labelEmptyListTitle;
@@ -362,7 +404,10 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel panelProjects;
     private javax.swing.JPanel panelProjectsList;
     private javax.swing.JPanel panelTasks;
-    private javax.swing.JPanel panelTitle;
+    private javax.swing.JPanel panelTitleBar;
     private javax.swing.JScrollPane scrollPanelProjects;
+    private javax.swing.JScrollPane scrollPanelTasks;
+    private javax.swing.JTable tableTasks;
     // End of variables declaration//GEN-END:variables
-}
+
+}//class
