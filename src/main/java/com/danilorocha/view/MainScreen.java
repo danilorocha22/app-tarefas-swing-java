@@ -4,8 +4,17 @@
  */
 package com.danilorocha.view;
 
+import com.danilorocha.controllers.ProjectController;
+import com.danilorocha.controllers.TaskController;
+import com.danilorocha.entities.Project;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import java.awt.event.WindowAdapter;
+
 
 /**
  *
@@ -13,12 +22,19 @@ import java.awt.Font;
  */
 public class MainScreen extends javax.swing.JFrame {
 
+    private final ProjectController projectController;
+    private final TaskController taskController;
+    private List<Project> projects;
+
     /**
      * Creates new form MainScreen
      */
     public MainScreen() {
         initComponents();
         decorateTableTask();
+        projectController = new ProjectController();
+        taskController = new TaskController();
+        listProjects();
     }
 
     /**
@@ -107,6 +123,8 @@ public class MainScreen extends javax.swing.JFrame {
         labelSubtitle.setForeground(new java.awt.Color(255, 255, 255));
         labelSubtitle.setText("Anote tudo, não esqueça nada!");
 
+        labelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tick.png"))); // NOI18N
+
         javax.swing.GroupLayout panelTitleBarLayout = new javax.swing.GroupLayout(panelTitleBar);
         panelTitleBar.setLayout(panelTitleBarLayout);
         panelTitleBarLayout.setHorizontalGroup(
@@ -118,7 +136,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSubtitle)
                     .addComponent(labelTitle))
-                .addContainerGap(338, Short.MAX_VALUE))
+                .addContainerGap(618, Short.MAX_VALUE))
         );
         panelTitleBarLayout.setVerticalGroup(
             panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,6 +160,7 @@ public class MainScreen extends javax.swing.JFrame {
         labelProjectsTitle.setText("Projetos");
 
         labelProjectsIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelProjectsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         labelProjectsIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelProjectsIconMouseClicked(evt);
@@ -153,7 +172,7 @@ public class MainScreen extends javax.swing.JFrame {
         panelProjectsLayout.setHorizontalGroup(
             panelProjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProjectsLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelProjectsTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelProjectsIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,6 +196,12 @@ public class MainScreen extends javax.swing.JFrame {
         labelTasksTitle.setText("Tarefas");
 
         labelTasksIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTasksIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
+        labelTasksIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelTasksIconMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTasksLayout = new javax.swing.GroupLayout(panelTasks);
         panelTasks.setLayout(panelTasksLayout);
@@ -205,14 +230,14 @@ public class MainScreen extends javax.swing.JFrame {
         listProjects.setBackground(new java.awt.Color(255, 255, 255));
         listProjects.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 18)); // NOI18N
         listProjects.setForeground(new java.awt.Color(51, 51, 51));
-        listProjects.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         listProjects.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listProjects.setFixedCellHeight(40);
         listProjects.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        listProjects.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listProjectsMouseClicked(evt);
+            }
+        });
         scrollPanelProjects.setViewportView(listProjects);
 
         javax.swing.GroupLayout panelProjectsListLayout = new javax.swing.GroupLayout(panelProjectsList);
@@ -228,7 +253,7 @@ public class MainScreen extends javax.swing.JFrame {
             panelProjectsListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProjectsListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanelProjects, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addComponent(scrollPanelProjects, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -275,11 +300,11 @@ public class MainScreen extends javax.swing.JFrame {
         panelContentsTask.setLayout(panelContentsTaskLayout);
         panelContentsTaskLayout.setHorizontalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
         );
         panelContentsTaskLayout.setVerticalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelContentsLayout = new javax.swing.GroupLayout(panelContents);
@@ -330,18 +355,37 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        
     private void labelProjectsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelProjectsIconMouseClicked
         // TODO add your handling code here:
-        ProjectDialogScreen dialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
-        dialogScreen.setVisible(true);
+        ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
+        projectDialogScreen.setVisible(true);
+        
+        projectDialogScreen.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent we) {
+                listProjects();
+            }
+        });
     }//GEN-LAST:event_labelProjectsIconMouseClicked
-    
+
+    private void listProjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProjectsMouseClicked
+        // TODO add your handling code here:
+        System.out.println(evt);
+    }//GEN-LAST:event_listProjectsMouseClicked
+
+    private void labelTasksIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelTasksIconMouseClicked
+        // TODO add your handling code here:
+        TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
+        //taskDialogScreen.setProject(null);
+        taskDialogScreen.setVisible(true);
+    }//GEN-LAST:event_labelTasksIconMouseClicked
+
     public void decorateTableTask() {
         tableTasks.getTableHeader().setFont(new Font("DejaVu Sans Condensed", Font.BOLD, 14));
         tableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
         tableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
         tableTasks.setAutoCreateRowSorter(true);
-        
     }//decorateTableTask
 
     /**
@@ -378,7 +422,7 @@ public class MainScreen extends javax.swing.JFrame {
                 new MainScreen().setVisible(true);
             }
         });
-        
+
     }//main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -404,5 +448,13 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPanelTasks;
     private javax.swing.JTable tableTasks;
     // End of variables declaration//GEN-END:variables
+
+    private void listProjects() {
+        projects = projectController.getAll();
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        projects.forEach((t) -> model.addElement(t));
+        listProjects.setModel(model);
+    }
 
 }//class
