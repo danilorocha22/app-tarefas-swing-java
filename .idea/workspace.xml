@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae6ab47e-c54c-4432-9ad5-78cf5daa5633" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/entities/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/entities/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/repositories/ProjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/repositories/ProjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/ProjectDialogScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/ProjectDialogScreen.java" afterDir="false" />
-    </list>
+    <list default="true" id="ae6ab47e-c54c-4432-9ad5-78cf5daa5633" name="Changes" comment="&quot;Atualização das classes ProjectRepository e Project&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -142,8 +137,16 @@
       <workItem from="1660611962254" duration="29000" />
       <workItem from="1660755547299" duration="3410000" />
       <workItem from="1660759216160" duration="966000" />
-      <workItem from="1660778547642" duration="734000" />
+      <workItem from="1660778547642" duration="797000" />
     </task>
+    <task id="LOCAL-00001" summary="&quot;Atualização das classes ProjectRepository e Project&quot;">
+      <created>1660779293464</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1660779293464</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,5 +165,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="&quot;Atualização das classes ProjectRepository e Project&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Atualização das classes ProjectRepository e Project&quot;" />
   </component>
 </project>

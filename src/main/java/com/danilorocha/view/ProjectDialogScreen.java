@@ -7,7 +7,9 @@ package com.danilorocha.view;
 import com.danilorocha.controllers.ProjectController;
 import com.danilorocha.entities.Project;
 import static com.danilorocha.entities.Project.newProject;
-import javax.swing.JOptionPane;
+import static com.danilorocha.view.UtilView.message;
+import static com.danilorocha.view.UtilView.checkInputs;
+import java.awt.event.WindowAdapter;
 
 /**
  *
@@ -16,7 +18,7 @@ import javax.swing.JOptionPane;
 public class ProjectDialogScreen extends javax.swing.JDialog {
 
     ProjectController projectController;
-
+    
     /**
      * Creates new form ProjectDialogScreen
      */
@@ -85,23 +87,29 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 
         panelContentsProject.setBackground(java.awt.Color.white);
 
+        labelNameProject.setBackground(java.awt.Color.white);
         labelNameProject.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        labelNameProject.setForeground(new java.awt.Color(128, 128, 128));
         labelNameProject.setText("Nome");
 
         inputNameProject.setBackground(java.awt.Color.white);
-        inputNameProject.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        inputNameProject.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
+        inputNameProject.setForeground(java.awt.Color.black);
         inputNameProject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNameProjectActionPerformed(evt);
             }
         });
 
+        labelDescritionProject.setBackground(java.awt.Color.white);
         labelDescritionProject.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
+        labelDescritionProject.setForeground(new java.awt.Color(128, 128, 128));
         labelDescritionProject.setText("Descrição");
 
         textAreaDescriptionProject.setBackground(java.awt.Color.white);
         textAreaDescriptionProject.setColumns(20);
         textAreaDescriptionProject.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 14)); // NOI18N
+        textAreaDescriptionProject.setForeground(new java.awt.Color(0, 0, 0));
         textAreaDescriptionProject.setRows(5);
         scrollPanelDescriptionProject.setViewportView(textAreaDescriptionProject);
 
@@ -164,13 +172,18 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         String name = inputNameProject.getText();
         String description = textAreaDescriptionProject.getText();
 
-        if (checkInputs(name, description)) {
-            Project project = newProject(name, description);
-            projectController.save(project);
-            System.out.println("Deu certo "+ project);
-            this.dispose();
-        }
-
+        if (checkInputs(rootPane, name, description)) {
+            try {
+                Project project = newProject(name, description);
+                projectController.save(project);
+                message(rootPane,"Salvo com sucesso");
+            } catch (Exception e) {
+                e.printStackTrace();
+                message(rootPane, "Não foi possível salvar o projeto");
+            } finally {
+                this.dispose();
+            }
+        }//if
     }//GEN-LAST:event_labelSaveProjectMouseClicked
 
     /**
@@ -226,16 +239,5 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
     private javax.swing.JScrollPane scrollPanelDescriptionProject;
     private javax.swing.JTextArea textAreaDescriptionProject;
     // End of variables declaration//GEN-END:variables
-
-    private boolean checkInputs(String name, String description) {
-        if (name.isBlank()) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do projeto");
-            return false;
-        } else if (description.isBlank()) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição");
-            return false;
-        }
-        return true;
-    }//checkInputs
 
 }//class

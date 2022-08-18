@@ -61,12 +61,7 @@ public class Project {
     @Override
     public String toString() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return "Project{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", createDate=" + dtf.format(createDate) +
-                ", updateDate=" + dtf.format(updateDate) +
-                '}';
+        return name;
     }
 
     @Override

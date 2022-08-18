@@ -15,7 +15,9 @@ public class Task {
     private final LocalDateTime createDate;
     private final LocalDateTime updateDate;
 
-    private Task(Long id, Long idProject, String name, String description, String note, boolean isCompleted, LocalDate deadline, LocalDateTime createDate, LocalDateTime updateDate) {
+    private Task(Long id, Long idProject, String name, String description, 
+            String note, boolean isCompleted, LocalDate deadline, 
+            LocalDateTime createDate, LocalDateTime updateDate) {
         this.id = id;
         this.idProject = idProject;
         this.name = name;
@@ -26,10 +28,32 @@ public class Task {
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
+    
+//    private Task(Long id,Long idProject, String name, String description, String note, 
+//            boolean isCompleted, LocalDate deadline) {
+//        this.id = id;
+//        this.idProject = idProject;
+//        this.name = name;
+//        this.description = description;
+//        this.note = note;
+//        this.isCompleted = isCompleted;
+//        this.deadline = deadline;
+//        this.createDate = LocalDateTime.now();
+//        this.updateDate = LocalDateTime.now();
+//    }
 
-    public static Task newTask(Long id, Long idProject, String name, String description, String note, boolean isCompleted, LocalDate deadline, LocalDateTime createDate, LocalDateTime updateDate) {
-        return new Task(id, idProject, name, description, note, isCompleted, deadline, createDate, updateDate);
+    public static Task newTask(Long id, Long idProject, String name, 
+            String description, String note, boolean isCompleted, 
+            LocalDate deadline, LocalDateTime createDate, LocalDateTime updateDate) {
+        return new Task(id, idProject, name, description, note, isCompleted, 
+                deadline, createDate, updateDate);
     }
+    
+//    public static Task newTask(Long id, Long idProject, String name, 
+//            String description, String note, boolean isCompleted, 
+//            LocalDate deadline, LocalDateTime createDate, LocalDateTime updateDate) {
+//        return new Task(id, idProject, name, description, note, isCompleted, deadline);
+//    }
 
     public Long getId() {
         return id;
