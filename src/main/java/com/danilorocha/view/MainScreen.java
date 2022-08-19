@@ -7,14 +7,14 @@ package com.danilorocha.view;
 import com.danilorocha.controllers.ProjectController;
 import com.danilorocha.controllers.TaskController;
 import com.danilorocha.entities.Project;
+import com.danilorocha.entities.Task;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import java.awt.event.WindowAdapter;
-
+import util.TaskTableModel;
 
 /**
  *
@@ -24,7 +24,6 @@ public class MainScreen extends javax.swing.JFrame {
 
     private final ProjectController projectController;
     private final TaskController taskController;
-    private List<Project> projects;
 
     /**
      * Creates new form MainScreen
@@ -136,7 +135,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSubtitle)
                     .addComponent(labelTitle))
-                .addContainerGap(618, Short.MAX_VALUE))
+                .addContainerGap(675, Short.MAX_VALUE))
         );
         panelTitleBarLayout.setVerticalGroup(
             panelTitleBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,33 +265,28 @@ public class MainScreen extends javax.swing.JFrame {
         tableTasks.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 12)); // NOI18N
         tableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Descrição", "Prazo", "Tarefa Concluída"
+                "Nome", "Descrição", "Prazo", "Tarefa Concluída", "Editar", "Excluir"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
         });
         tableTasks.setGridColor(java.awt.Color.white);
         tableTasks.setRowHeight(40);
         tableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        tableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableTasks.setShowVerticalLines(false);
         scrollPanelTasks.setViewportView(tableTasks);
 
@@ -300,7 +294,7 @@ public class MainScreen extends javax.swing.JFrame {
         panelContentsTask.setLayout(panelContentsTaskLayout);
         panelContentsTaskLayout.setHorizontalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+            .addComponent(scrollPanelTasks, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
         );
         panelContentsTaskLayout.setVerticalGroup(
             panelContentsTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,12 +349,13 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-        
     private void labelProjectsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelProjectsIconMouseClicked
         // TODO add your handling code here:
         ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
         projectDialogScreen.setVisible(true);
         
+        /*Atualiza a lista de projetos após a janela de cadastro de projeto for
+        fechada*/
         projectDialogScreen.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent we) {
@@ -371,7 +366,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void listProjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProjectsMouseClicked
         // TODO add your handling code here:
-        System.out.println(evt);
+        listTasks(13);
     }//GEN-LAST:event_listProjectsMouseClicked
 
     private void labelTasksIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelTasksIconMouseClicked
@@ -386,7 +381,22 @@ public class MainScreen extends javax.swing.JFrame {
         tableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
         tableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
         tableTasks.setAutoCreateRowSorter(true);
-    }//decorateTableTask
+    }
+    
+    private void listProjects() {
+        List<Project> projects = projectController.getAll();
+        DefaultListModel projectsModel = new DefaultListModel();
+        projectsModel.clear();
+        projects.forEach((p) -> projectsModel.addElement(p));
+        listProjects.setModel(projectsModel);
+    }
+
+    private void listTasks(int idProject) {
+        List<Task> tasks = taskController.getAll(idProject);
+        TaskTableModel taskTableModel = new TaskTableModel();
+        tableTasks.setModel(taskTableModel);
+        taskTableModel.setTasks(tasks);
+    }
 
     /**
      * @param args the command line arguments
@@ -448,13 +458,5 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPanelTasks;
     private javax.swing.JTable tableTasks;
     // End of variables declaration//GEN-END:variables
-
-    private void listProjects() {
-        projects = projectController.getAll();
-        DefaultListModel model = new DefaultListModel();
-        model.clear();
-        projects.forEach((t) -> model.addElement(t));
-        listProjects.setModel(model);
-    }
 
 }//class

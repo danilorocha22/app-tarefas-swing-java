@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
+
     private final Long id;
     private final Long idProject;
     private final String name;
@@ -15,9 +16,10 @@ public class Task {
     private final LocalDateTime createDate;
     private final LocalDateTime updateDate;
 
-    private Task(Long id, Long idProject, String name, String description, 
-            String note, boolean isCompleted, LocalDate deadline, 
+    private Task(Long id, Long idProject, String name, String description,
+            String note, boolean isCompleted, LocalDate deadline,
             LocalDateTime createDate, LocalDateTime updateDate) {
+
         this.id = id;
         this.idProject = idProject;
         this.name = name;
@@ -28,32 +30,14 @@ public class Task {
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
-    
-//    private Task(Long id,Long idProject, String name, String description, String note, 
-//            boolean isCompleted, LocalDate deadline) {
-//        this.id = id;
-//        this.idProject = idProject;
-//        this.name = name;
-//        this.description = description;
-//        this.note = note;
-//        this.isCompleted = isCompleted;
-//        this.deadline = deadline;
-//        this.createDate = LocalDateTime.now();
-//        this.updateDate = LocalDateTime.now();
-//    }
 
-    public static Task newTask(Long id, Long idProject, String name, 
-            String description, String note, boolean isCompleted, 
+    public static Task newTask(Long id, Long idProject, String name,
+            String description, String note, boolean isCompleted,
             LocalDate deadline, LocalDateTime createDate, LocalDateTime updateDate) {
-        return new Task(id, idProject, name, description, note, isCompleted, 
+
+        return new Task(id, idProject, name, description, note, isCompleted,
                 deadline, createDate, updateDate);
     }
-    
-//    public static Task newTask(Long id, Long idProject, String name, 
-//            String description, String note, boolean isCompleted, 
-//            LocalDate deadline, LocalDateTime createDate, LocalDateTime updateDate) {
-//        return new Task(id, idProject, name, description, note, isCompleted, deadline);
-//    }
 
     public Long getId() {
         return id;
@@ -93,21 +77,17 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", note='" + note + '\'' +
-                ", isCompleted=" + isCompleted +
-                ", deadline=" + deadline +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                '}';
+        return name + description + deadline + isCompleted;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Task task)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Task task)) {
+            return false;
+        }
         return getId() == task.getId();
     }
 

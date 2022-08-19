@@ -6,12 +6,12 @@ import com.danilorocha.entities.Task;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.danilorocha.connection.ConnectionFactory.getConnection;
 import static com.danilorocha.entities.Task.newTask;
+import java.time.format.DateTimeFormatter;
 
 public class TaskRepository {
 
@@ -34,9 +34,9 @@ public class TaskRepository {
             statement.setString(3, task.getDescription());
             statement.setBoolean(4, task.isCompleted());
             statement.setString(5, task.getName());
-            statement.setDate(6, new Date(task.getDeadline().getLong(ChronoField.EPOCH_DAY)));
-            statement.setDate(7, new Date(task.getCreateDate().getLong(ChronoField.EPOCH_DAY)));
-            statement.setDate(8, new Date(task.getUpdateDate().getLong(ChronoField.EPOCH_DAY)));
+            statement.setDate(6, Date.valueOf(task.getDeadline()));
+            statement.setTimestamp(7, Timestamp.valueOf(task.getCreateDate()));
+            statement.setTimestamp(8, Timestamp.valueOf(task.getUpdateDate()));
             statement.execute();
 
         } catch (Exception e) {
@@ -91,17 +91,20 @@ public class TaskRepository {
 
     public List<Task> getAll(int idProject) {
         try (Connection conn = getConnection();
-             PreparedStatement statement = createdPreparedStatement(conn, idProject);
+             PreparedStatement statement = createPreparedStatement(conn, idProject);
              ResultSet resultSet = statement.executeQuery()) {
 
             List<Task> tasks = new ArrayList<>();
-
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            
             while (resultSet.next()) {
                 Task task = newTask(resultSet.getLong("id"), resultSet.getLong("idProject"),
-                        resultSet.getString("name"), resultSet.getString("description"), resultSet.getString("note"),
-                        resultSet.getBoolean("isCompleted"), LocalDate.parse(resultSet.getDate("deadline").toString()),
-                        LocalDateTime.parse(resultSet.getDate("createDate").toString()),
-                        LocalDateTime.parse(resultSet.getDate("updateDate").toString()));
+                        resultSet.getString("name"), resultSet.getString("description"),
+                        resultSet.getString("note"), resultSet.getBoolean("completed"),
+                        resultSet.getDate("deadline").toLocalDate(),
+                        resultSet.getTimestamp("createDate").toLocalDateTime(),
+                        resultSet.getTimestamp("updateDate").toLocalDateTime());
                 tasks.add(task);
             }//while
 
@@ -112,11 +115,14 @@ public class TaskRepository {
         }//catch
     }//getAll
 
-    private PreparedStatement createdPreparedStatement(Connection conn, int idProject) throws Exception {
+    private PreparedStatement createPreparedStatement(Connection conn, int idProject)
+            throws Exception {
+        
         String sql = "SELECT * FROM tasks WHERE idProject = ?";
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setInt(1, idProject);
         return statement;
+        
     }//createdPreparedStatement
 
 }//class

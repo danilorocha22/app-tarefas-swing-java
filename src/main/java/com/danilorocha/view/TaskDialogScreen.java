@@ -7,12 +7,12 @@ package com.danilorocha.view;
 import com.danilorocha.controllers.TaskController;
 import com.danilorocha.entities.Project;
 import com.danilorocha.entities.Task;
-import static com.danilorocha.view.UtilView.checkInputs;
-import static com.danilorocha.view.UtilView.message;
+import static com.danilorocha.entities.Task.newTask;
+import static util.UtilView.checkInputs;
+import static util.UtilView.message;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 /**
  *
@@ -20,8 +20,8 @@ import java.time.format.DateTimeFormatterBuilder;
  */
 public class TaskDialogScreen extends javax.swing.JDialog {
     
-    TaskController taskController;
-    Project project;
+    private TaskController taskController;
+    private Project project;
 
     /**
      * Creates new form ProjectDialogScreen
@@ -232,14 +232,14 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         // TODO add your handling code here:
         String name = inputNameTask.getText();
         String description = textAreaDescriptionTask.getText();
-        String notes = textAreaNotesTask.getText();
+        String note = textAreaNotesTask.getText();
         String deadline = inputDeadlineTask.getText();
-        
+
         if (checkInputs(rootPane, name, description, deadline)) {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             try {
-                Task task = Task.newTask(null, project.getId(), name,
-                        description, notes, false, LocalDate.parse(deadline, dtf),
+                Task task = newTask(null, project.getId(), name,
+                        description, note, false, LocalDate.parse(deadline, df),
                         LocalDateTime.now(), LocalDateTime.now());
                 taskController.save(task);
                 message(rootPane, "Tarefa salva com sucesso");
@@ -252,6 +252,10 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         }//if
     }//GEN-LAST:event_labelSaveTaskMouseClicked
 
+    public void setProject(Project project) {
+        this.project = project;
+    }
+    
     private void inputDeadlineTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDeadlineTaskActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputDeadlineTaskActionPerformed
@@ -316,9 +320,5 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private javax.swing.JTextArea textAreaDescriptionTask;
     private javax.swing.JTextArea textAreaNotesTask;
     // End of variables declaration//GEN-END:variables
-
-    public void setProject(Project project) {
-        this.project = project;
-    }   
-    
+     
 }

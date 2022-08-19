@@ -7,9 +7,9 @@ package com.danilorocha.view;
 import com.danilorocha.controllers.ProjectController;
 import com.danilorocha.entities.Project;
 import static com.danilorocha.entities.Project.newProject;
-import static com.danilorocha.view.UtilView.message;
-import static com.danilorocha.view.UtilView.checkInputs;
-import java.awt.event.WindowAdapter;
+import static util.UtilView.message;
+import static util.UtilView.checkInputs;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -17,7 +17,7 @@ import java.awt.event.WindowAdapter;
  */
 public class ProjectDialogScreen extends javax.swing.JDialog {
 
-    ProjectController projectController;
+    private ProjectController projectController;
     
     /**
      * Creates new form ProjectDialogScreen
@@ -174,7 +174,8 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 
         if (checkInputs(rootPane, name, description)) {
             try {
-                Project project = newProject(name, description);
+                Project project = newProject(null, name, description, 
+                LocalDateTime.now(), LocalDateTime.now());
                 projectController.save(project);
                 message(rootPane,"Salvo com sucesso");
             } catch (Exception e) {
