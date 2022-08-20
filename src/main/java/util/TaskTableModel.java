@@ -4,12 +4,12 @@
  */
 package util;
 
+import com.danilorocha.entities.Task;
+import static com.danilorocha.entities.Task.newTask;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import com.danilorocha.entities.Task;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  *
@@ -35,36 +35,10 @@ public class TaskTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return columns.length;
     }
-
+    
     @Override
-    public Object getValueAt(int rowI, int colI) {
-        switch (colI) {
-            case 1:
-                return tasks.get(rowI).getName();
-                
-            case 2:
-                return tasks.get(rowI).getDescription();
-                
-            case 3:
-                return tasks.get(rowI).getDeadline();
-                
-            case 4:
-                return tasks.get(rowI).isCompleted();
-                
-            case 5:
-                return "";
-            
-            case 6:
-                return "";
-                
-            default:
-                return "Dados não encontrados";
-        }//switch
-    }//getValueAt
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 3;
+    public String getColumnName(int columnIndex) {
+        return columns[columnIndex];
     }
 
     @Override
@@ -73,18 +47,46 @@ public class TaskTableModel extends AbstractTableModel {
             return Object.class;
         return this.getValueAt(0, columnIndex).getClass();
     }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return columnIndex == 3;
+    }
+
+    @Override
+    public Object getValueAt(int rowI, int colI) {
+        switch (colI) {
+            case 0:
+                return tasks.get(rowI).getName();
+            case 1:
+                return tasks.get(rowI).getDescription();
+            case 2:
+                return tasks.get(rowI).getDeadline().format(DateTimeFormatter.
+                        ofPattern("dd/MM/yyyy"));
+            case 3:
+                return tasks.get(rowI).isCompleted();
+            case 4:
+                return "";
+            case 5:
+                return "";
+            default:
+                return "Dados não encontrados";
+        }//switch
+    }//getValueAt
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         Task oldTask = this.tasks.get(rowIndex);
-        Task newTask = Task.newTask(oldTask.getId(), oldTask.getIdProject(), 
+        Task newTask = newTask(oldTask.getId(), oldTask.getIdProject(), 
                        oldTask.getName(), oldTask.getDescription(), oldTask.getNote(),
                        (boolean) aValue, oldTask.getDeadline(), oldTask.getCreateDate(), 
                        oldTask.getUpdateDate());
         this.tasks.set(rowIndex, newTask);
     }
     
-    
+    public void addRow(Task task) {
+        this.tasks.add(task);
+    }
 
     public String[] getColumns() {
         return columns;
@@ -95,7 +97,7 @@ public class TaskTableModel extends AbstractTableModel {
     }
 
     public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+        this.tasks.addAll(tasks);
     }
         
 }//class

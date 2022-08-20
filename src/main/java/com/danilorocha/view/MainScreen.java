@@ -10,11 +10,16 @@ import com.danilorocha.entities.Project;
 import com.danilorocha.entities.Task;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.WindowEvent;
-import java.util.List;
-import javax.swing.DefaultListModel;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
+import javax.swing.DefaultListModel;
 import util.TaskTableModel;
+import util.UtilView;
+import static util.UtilView.message;
 
 /**
  *
@@ -24,6 +29,8 @@ public class MainScreen extends javax.swing.JFrame {
 
     private final ProjectController projectController;
     private final TaskController taskController;
+    private DefaultListModel projectsModel;
+    private TaskTableModel taskTableModel;
 
     /**
      * Creates new form MainScreen
@@ -33,6 +40,7 @@ public class MainScreen extends javax.swing.JFrame {
         decorateTableTask();
         projectController = new ProjectController();
         taskController = new TaskController();
+        projectsModel = new DefaultListModel();
         listProjects();
     }
 
@@ -263,23 +271,31 @@ public class MainScreen extends javax.swing.JFrame {
 
         tableTasks.setBackground(java.awt.Color.white);
         tableTasks.setFont(new java.awt.Font("DejaVu Sans Condensed", 0, 12)); // NOI18N
+        tableTasks.setForeground(java.awt.Color.black);
         tableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Descrição", "Prazo", "Tarefa Concluída", "Editar", "Excluir"
+                "Nome", "Descrição", "Prazo", "Tarefa Concluída"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tableTasks.setGridColor(java.awt.Color.white);
@@ -287,7 +303,13 @@ public class MainScreen extends javax.swing.JFrame {
         tableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
         tableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tableTasks.setShowVerticalLines(false);
+        tableTasks.setShowGrid(false);
+        tableTasks.setShowHorizontalLines(true);
+        tableTasks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableTasksMouseClicked(evt);
+            }
+        });
         scrollPanelTasks.setViewportView(tableTasks);
 
         javax.swing.GroupLayout panelContentsTaskLayout = new javax.swing.GroupLayout(panelContentsTask);
@@ -351,7 +373,8 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void labelProjectsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelProjectsIconMouseClicked
         // TODO add your handling code here:
-        ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
+        ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this,
+                rootPaneCheckingEnabled);
         projectDialogScreen.setVisible(true);
         
         /*Atualiza a lista de projetos após a janela de cadastro de projeto for
@@ -366,36 +389,78 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void listProjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProjectsMouseClicked
         // TODO add your handling code here:
-        listTasks(13);
+        listProjects.setSelectionForeground(Color.WHITE);
+        listTasks(getProjectUI().getId());
     }//GEN-LAST:event_listProjectsMouseClicked
 
     private void labelTasksIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelTasksIconMouseClicked
         // TODO add your handling code here:
-        TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
-        //taskDialogScreen.setProject(null);
-        taskDialogScreen.setVisible(true);
+        TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, 
+                rootPaneCheckingEnabled);
+        
+        if (Objects.nonNull(getProjectUI())) {
+            taskDialogScreen.setProject(getProjectUI());
+            taskDialogScreen.setVisible(true);
+        } else {
+            message(rootPane, "Selecione primeiro o projeto");
+        }
+        
+        /*Atualiza a lista de tarefas após a janela de cadastro de tarefa for
+        fechada*/
+        taskDialogScreen.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                listTasks(getProjectUI().getId());
+            }
+        });
     }//GEN-LAST:event_labelTasksIconMouseClicked
 
-    public void decorateTableTask() {
-        tableTasks.getTableHeader().setFont(new Font("DejaVu Sans Condensed", Font.BOLD, 14));
-        tableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
-        tableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
-        tableTasks.setAutoCreateRowSorter(true);
-    }
+    private void tableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTasksMouseClicked
+        // TODO add your handling code here:
+        int rowIndex = tableTasks.rowAtPoint(evt.getPoint());
+        int colIndex = tableTasks.columnAtPoint(evt.getPoint());
+        
+        switch (colIndex) {
+            case 3:
+                Task oldTask = taskTableModel.getTasks().get(rowIndex);
+                Task newTask = newTask(oldTask.getId(), oldTask.getIdProject(),
+                        oldTask.getName(), oldTask.getDescription(), note, rootPaneCheckingEnabled, LocalDate.MIN,
+                        LocalDateTime.MAX, LocalDateTime.MAX);
+                taskController.update(newTask);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }//GEN-LAST:event_tableTasksMouseClicked
     
     private void listProjects() {
         List<Project> projects = projectController.getAll();
-        DefaultListModel projectsModel = new DefaultListModel();
         projectsModel.clear();
         projects.forEach((p) -> projectsModel.addElement(p));
         listProjects.setModel(projectsModel);
     }
 
-    private void listTasks(int idProject) {
+    private void listTasks(Long idProject) {
         List<Task> tasks = taskController.getAll(idProject);
-        TaskTableModel taskTableModel = new TaskTableModel();
+        taskTableModel = new TaskTableModel();
         tableTasks.setModel(taskTableModel);
         taskTableModel.setTasks(tasks);
+    }
+    
+     private void decorateTableTask() {
+        tableTasks.getTableHeader().setFont(new Font("DejaVu Sans Condensed", 
+                Font.BOLD, 14));
+        tableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
+        tableTasks.getTableHeader().setForeground(Color.WHITE);
+        tableTasks.setAutoCreateRowSorter(true);
+    }
+     
+     private Project getProjectUI() {
+        int index = listProjects.getSelectedIndex();
+        if (index < 0)
+            return null;
+        Project project = (Project) projectsModel.get(index);
+        return project;
     }
 
     /**

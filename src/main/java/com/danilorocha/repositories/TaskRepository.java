@@ -1,17 +1,13 @@
 package com.danilorocha.repositories;
 
 import com.danilorocha.connection.ConnectionFactory;
+import static com.danilorocha.connection.ConnectionFactory.getConnection;
 import com.danilorocha.entities.Task;
-
+import static com.danilorocha.entities.Task.newTask;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.danilorocha.connection.ConnectionFactory.getConnection;
-import static com.danilorocha.entities.Task.newTask;
-import java.time.format.DateTimeFormatter;
 
 public class TaskRepository {
 
@@ -75,13 +71,13 @@ public class TaskRepository {
         }//catch
     }//update
 
-    public void removeById(int taskId) {
+    public void removeById(Long taskId) {
         String sql = "DELETE FROM tasks WHERE id = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
 
-            statement.setInt(1, taskId);
+            statement.setLong(1, taskId);
             statement.execute();
 
         } catch (Exception e) {
@@ -89,7 +85,7 @@ public class TaskRepository {
         }//catch
     }//remove
 
-    public List<Task> getAll(int idProject) {
+    public List<Task> getAll(Long idProject) {
         try (Connection conn = getConnection();
              PreparedStatement statement = createPreparedStatement(conn, idProject);
              ResultSet resultSet = statement.executeQuery()) {
@@ -115,12 +111,12 @@ public class TaskRepository {
         }//catch
     }//getAll
 
-    private PreparedStatement createPreparedStatement(Connection conn, int idProject)
+    private PreparedStatement createPreparedStatement(Connection conn, Long idProject)
             throws Exception {
         
         String sql = "SELECT * FROM tasks WHERE idProject = ?";
         PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setInt(1, idProject);
+        statement.setLong(1, idProject);
         return statement;
         
     }//createdPreparedStatement

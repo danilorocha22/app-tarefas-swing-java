@@ -21,11 +21,11 @@ public class TaskController {
         taskRepository.update(task);
     }
 
-    public void removeById(int taskId) {
+    public void removeById(Long taskId) {
         taskRepository.removeById(taskId);
     }
 
-    public List<Task> getAll(int projectId) {
+    public List<Task> getAll(Long projectId) {
         return taskRepository.getAll(projectId);
     }
 

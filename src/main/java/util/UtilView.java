@@ -37,7 +37,7 @@ public class UtilView {
             message(rootPane, "Informe a descrição");
             return false;
         } else if (deadline.isBlank()) {
-            message(rootPane, "Informe o prazo final");
+            message(rootPane, "Informe o prazo");
             return false;
         } 
         return true;

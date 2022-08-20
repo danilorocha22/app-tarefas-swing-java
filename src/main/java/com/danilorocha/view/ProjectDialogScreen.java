@@ -179,7 +179,6 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
                 projectController.save(project);
                 message(rootPane,"Salvo com sucesso");
             } catch (Exception e) {
-                e.printStackTrace();
                 message(rootPane, "Não foi possível salvar o projeto");
             } finally {
                 this.dispose();
@@ -198,7 +197,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Java swing".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

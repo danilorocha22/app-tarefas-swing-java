@@ -8,11 +8,13 @@ import com.danilorocha.controllers.TaskController;
 import com.danilorocha.entities.Project;
 import com.danilorocha.entities.Task;
 import static com.danilorocha.entities.Task.newTask;
-import static util.UtilView.checkInputs;
-import static util.UtilView.message;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
+import static util.UtilView.checkInputs;
+import static util.UtilView.message;
 
 /**
  *
@@ -103,7 +105,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
 
         inputNameTask.setBackground(java.awt.Color.white);
         inputNameTask.setFont(new java.awt.Font("DejaVu Sans Condensed", 1, 14)); // NOI18N
-        inputNameTask.setForeground(java.awt.Color.white);
+        inputNameTask.setForeground(java.awt.Color.black);
         inputNameTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNameTaskActionPerformed(evt);
@@ -163,6 +165,8 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         textAreaNotesTask.setRows(5);
         scrollPanelNotesTask.setViewportView(textAreaNotesTask);
 
+        inputDeadlineTask.setBackground(java.awt.Color.white);
+        inputDeadlineTask.setForeground(java.awt.Color.black);
         inputDeadlineTask.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         inputDeadlineTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,22 +240,25 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         String deadline = inputDeadlineTask.getText();
 
         if (checkInputs(rootPane, name, description, deadline)) {
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             try {
-                Task task = newTask(null, project.getId(), name,
-                        description, note, false, LocalDate.parse(deadline, df),
-                        LocalDateTime.now(), LocalDateTime.now());
-                taskController.save(task);
-                message(rootPane, "Tarefa salva com sucesso");
+                DateTimeFormatter df = validateDateFormatter(deadline);
+                if (Objects.nonNull(df)) {
+                    Task task = newTask(null, this.project.getId(), name,
+                            description, note, false, LocalDate.parse(deadline, df),
+                            LocalDateTime.now(), LocalDateTime.now());
+                    taskController.save(task);
+                    message(rootPane, "Tarefa salva com sucesso");
+                    this.dispose();
+                }
+            } catch (DateTimeParseException e) {
+                message(rootPane, "Informe uma data válida, ex: dd/mm/aa "
+                        + "ou dd/mm/aaaa");
             } catch (Exception e) {
-                e.printStackTrace();
                 message(rootPane, "Não foi possível salvar a tarefa");
-            } finally {
-                this.dispose();
-            }
+            } 
         }//if
     }//GEN-LAST:event_labelSaveTaskMouseClicked
-
+    
     public void setProject(Project project) {
         this.project = project;
     }
@@ -271,7 +278,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Java swing".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -320,5 +327,22 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private javax.swing.JTextArea textAreaDescriptionTask;
     private javax.swing.JTextArea textAreaNotesTask;
     // End of variables declaration//GEN-END:variables
+
+    private DateTimeFormatter validateDateFormatter(String deadline) throws Exception {
+        String[] deadlineSplit = deadline.split("/");
+        StringBuilder deadlineBuilder = new StringBuilder();
+        
+        for (int i = 0; i < deadlineSplit.length; i++)
+            deadlineBuilder.append(deadlineSplit[i]);
+        
+        int tam = deadlineBuilder.length();
+        switch (tam) {
+            case 6:
+                return DateTimeFormatter.ofPattern("dd/MM/yy");
+            case 8:
+                return DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        }
+        return null;
+    }
      
 }
