@@ -7,14 +7,15 @@ package com.danilorocha.view;
 import com.danilorocha.controllers.TaskController;
 import com.danilorocha.entities.Project;
 import com.danilorocha.entities.Task;
+
 import static com.danilorocha.entities.Task.newTask;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
-import static util.UtilView.checkInputs;
-import static util.UtilView.message;
+import static com.danilorocha.util.UtilView.checkInputs;
+import static com.danilorocha.util.UtilView.messageDialog;
 
 /**
  *
@@ -22,8 +23,9 @@ import static util.UtilView.message;
  */
 public class TaskDialogScreen extends javax.swing.JDialog {
     
-    private TaskController taskController;
+    private final TaskController taskController;
     private Project project;
+    private Task task;
 
     /**
      * Creates new form ProjectDialogScreen
@@ -69,7 +71,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         labelTitleBar.setText("Tarefa");
 
         labelSaveTask.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelSaveTask.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
+        labelSaveTask.setIcon(new javax.swing.ImageIcon(getClass().getResource("/check.png"))); // NOI18N
         labelSaveTask.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelSaveTaskMouseClicked(evt);
@@ -243,26 +245,62 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             try {
                 DateTimeFormatter df = validateDateFormatter(deadline);
                 if (Objects.nonNull(df)) {
-                    Task task = newTask(null, this.project.getId(), name,
-                            description, note, false, LocalDate.parse(deadline, df),
-                            LocalDateTime.now(), LocalDateTime.now());
-                    taskController.save(task);
-                    message(rootPane, "Tarefa salva com sucesso");
+                    if (this.task == null) {
+                        Task newTask = newTask(null, this.project.getId(), name,
+                                description, note, false, LocalDate.parse(deadline, df),
+                                LocalDateTime.now(), LocalDateTime.now());
+                        taskController.save(newTask);
+                        messageDialog(rootPane, "Tarefa salva com sucesso");
+                    } else {
+                        Task updateTask = newTask(this.task.getId(), this.task.getIdProject(), name, description, note,
+                                this.task.isCompleted(), LocalDate.parse(deadline, df), this.task.getCreateDate(),
+                                LocalDateTime.now());
+                        taskController.update(updateTask);
+                        messageDialog(rootPane, "Tarefa atualizada com sucesso");
+                    }
                     this.dispose();
                 }
             } catch (DateTimeParseException e) {
-                message(rootPane, "Informe uma data válida, ex: dd/mm/aa "
+                e.printStackTrace();
+                messageDialog(rootPane, "Informe uma data válida, ex: dd/mm/aa "
                         + "ou dd/mm/aaaa");
             } catch (Exception e) {
-                message(rootPane, "Não foi possível salvar a tarefa");
+                e.printStackTrace();
+                messageDialog(rootPane, "Não foi possível salvar a tarefa");
             } 
         }//if
     }//GEN-LAST:event_labelSaveTaskMouseClicked
-    
+
+    private DateTimeFormatter validateDateFormatter(String deadline) throws DateTimeParseException {
+        String[] deadlineSplit = deadline.split("/");
+        StringBuilder deadlineBuilder = new StringBuilder();
+
+        for (int i = 0; i < deadlineSplit.length; i++)
+            deadlineBuilder.append(deadlineSplit[i]);
+
+        return switch (deadlineBuilder.length()) {
+            case 6 -> DateTimeFormatter.ofPattern("dd/MM/yy");
+            case 8 -> DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            default -> null;
+        };
+    }
+
     public void setProject(Project project) {
         this.project = project;
     }
-    
+
+    public void setTask(Task oldTask) {
+        this.task = oldTask;
+        setInputs();
+    }
+
+    private void setInputs() {
+        inputNameTask.setText(this.task.getName());
+        textAreaDescriptionTask.setText(this.task.getDescription());
+        textAreaNotesTask.setText(this.task.getNote());
+        inputDeadlineTask.setText(this.task.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    }
+
     private void inputDeadlineTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDeadlineTaskActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputDeadlineTaskActionPerformed
@@ -328,21 +366,4 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private javax.swing.JTextArea textAreaNotesTask;
     // End of variables declaration//GEN-END:variables
 
-    private DateTimeFormatter validateDateFormatter(String deadline) throws Exception {
-        String[] deadlineSplit = deadline.split("/");
-        StringBuilder deadlineBuilder = new StringBuilder();
-        
-        for (int i = 0; i < deadlineSplit.length; i++)
-            deadlineBuilder.append(deadlineSplit[i]);
-        
-        int tam = deadlineBuilder.length();
-        switch (tam) {
-            case 6:
-                return DateTimeFormatter.ofPattern("dd/MM/yy");
-            case 8:
-                return DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        }
-        return null;
-    }
-     
 }

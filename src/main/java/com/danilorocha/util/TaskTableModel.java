@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package util;
+package com.danilorocha.util;
 
 import com.danilorocha.entities.Task;
 import static com.danilorocha.entities.Task.newTask;
@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TaskTableModel extends AbstractTableModel {
     
-    private String[] columns = { "Nome", "Descrição", "Prazo", "Tarefa Concluída",
+    private String[] columns = { "Nome", "Descrição", "Prazo", "Notas", "Tarefa Concluída",
                                 "Editar", "Excluir" };
     
     private List<Task> tasks;
@@ -50,7 +50,7 @@ public class TaskTableModel extends AbstractTableModel {
     
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 3;
+        return columnIndex == 4;
     }
 
     @Override
@@ -64,10 +64,12 @@ public class TaskTableModel extends AbstractTableModel {
                 return tasks.get(rowI).getDeadline().format(DateTimeFormatter.
                         ofPattern("dd/MM/yyyy"));
             case 3:
-                return tasks.get(rowI).isCompleted();
+                return tasks.get(rowI).getNote();
             case 4:
-                return "";
+                return tasks.get(rowI).isCompleted();
             case 5:
+                return "";
+            case 6:
                 return "";
             default:
                 return "Dados não encontrados";

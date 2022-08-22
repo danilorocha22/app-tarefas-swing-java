@@ -29,7 +29,7 @@ public class TaskRepository {
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
             statement.setBoolean(4, task.isCompleted());
-            statement.setString(5, task.getName());
+            statement.setString(5, task.getNote());
             statement.setDate(6, Date.valueOf(task.getDeadline()));
             statement.setTimestamp(7, Timestamp.valueOf(task.getCreateDate()));
             statement.setTimestamp(8, Timestamp.valueOf(task.getUpdateDate()));
@@ -42,6 +42,7 @@ public class TaskRepository {
 
     public void update(Task task) {
         String sql = "UPDATE tasks SET " +
+                "id = ?, " +
                 "idProject = ?, " +
                 "name = ?, " +
                 "description = ?, " +
@@ -49,21 +50,22 @@ public class TaskRepository {
                 "note = ?, " +
                 "deadline = ?, " +
                 "createDate = ?, " +
-                "updateDate = ?, " +
+                "updateDate = ? " +
                 "WHERE id = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
 
-            statement.setLong(1, task.getIdProject());
-            statement.setString(2, task.getName());
-            statement.setString(3, task.getDescription());
-            statement.setBoolean(4, task.isCompleted());
-            statement.setString(5, task.getNote());
-            statement.setDate(6, Date.valueOf(task.getDeadline()));
-            statement.setTimestamp(7, Timestamp.valueOf(task.getCreateDate()));
-            statement.setTimestamp(8, Timestamp.valueOf(task.getUpdateDate()));
-            statement.setLong(9, task.getId());
+            statement.setLong(1, task.getId());
+            statement.setLong(2, task.getIdProject());
+            statement.setString(3, task.getName());
+            statement.setString(4, task.getDescription());
+            statement.setBoolean(5, task.isCompleted());
+            statement.setString(6, task.getNote());
+            statement.setDate(7, Date.valueOf(task.getDeadline()));
+            statement.setTimestamp(8, Timestamp.valueOf(task.getCreateDate()));
+            statement.setTimestamp(9, Timestamp.valueOf(task.getUpdateDate()));
+            statement.setLong(10, task.getId());
             statement.execute();
 
         } catch (Exception e) {
@@ -91,9 +93,7 @@ public class TaskRepository {
              ResultSet resultSet = statement.executeQuery()) {
 
             List<Task> tasks = new ArrayList<>();
-            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            
+
             while (resultSet.next()) {
                 Task task = newTask(resultSet.getLong("id"), resultSet.getLong("idProject"),
                         resultSet.getString("name"), resultSet.getString("description"),
@@ -111,14 +111,11 @@ public class TaskRepository {
         }//catch
     }//getAll
 
-    private PreparedStatement createPreparedStatement(Connection conn, Long idProject)
-            throws Exception {
-        
-        String sql = "SELECT * FROM tasks WHERE idProject = ?";
-        PreparedStatement statement = conn.prepareStatement(sql);
+    private PreparedStatement createPreparedStatement(Connection conn, Long idProject) throws Exception {
+        String query = "SELECT * FROM tasks WHERE idProject = ?";
+        PreparedStatement statement = conn.prepareStatement(query);
         statement.setLong(1, idProject);
         return statement;
-        
     }//createdPreparedStatement
 
 }//class

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.danilorocha.connection.ConnectionFactory.getConnection;
 import static com.danilorocha.entities.Project.newProject;
@@ -72,7 +73,7 @@ public class ProjectRepository {
         }//catch
     }//remove
 
-    public List<Project> getAll() {
+    public Optional<List<Project>> getAll() {
         String sql = "SELECT * FROM projects";
 
         try (Connection conn = getConnection();
@@ -83,16 +84,15 @@ public class ProjectRepository {
 
             while (resultSet.next()) {
                 Project project = newProject(resultSet.getLong("id"), resultSet.getString("name"),
-                        resultSet.getString("description"),
-                        resultSet.getTimestamp("createDate").toLocalDateTime(),
+                        resultSet.getString("description"), resultSet.getTimestamp("createDate").toLocalDateTime(),
                         resultSet.getTimestamp("updateDate").toLocalDateTime());
                 projects.add(project);
             }
 
-            return projects;
+            return Optional.of(projects);
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao tentar buscar todos os projetos ", e);
+            throw new RuntimeException("Erro ao tentar listar todos os projetos ", e);
         }//catch
     }//getAll
 

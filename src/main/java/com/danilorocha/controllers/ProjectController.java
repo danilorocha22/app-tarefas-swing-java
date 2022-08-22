@@ -3,7 +3,9 @@ package com.danilorocha.controllers;
 import com.danilorocha.entities.Project;
 import com.danilorocha.repositories.ProjectRepository;
 
+import javax.swing.*;
 import java.util.List;
+import java.util.Optional;
 
 public class ProjectController {
 
@@ -19,14 +21,13 @@ public class ProjectController {
 
     public void update(Project project) {
         projectRepository.update(project);
-
     }
 
     public void removeById(Long projectId) {
         projectRepository.remove(projectId);
     }
 
-    public List<Project> getAll() {
+    public Optional<List<Project>> getAll() {
         return projectRepository.getAll();
     }
 

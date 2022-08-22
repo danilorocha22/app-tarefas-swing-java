@@ -7,8 +7,8 @@ package com.danilorocha.view;
 import com.danilorocha.controllers.ProjectController;
 import com.danilorocha.entities.Project;
 import static com.danilorocha.entities.Project.newProject;
-import static util.UtilView.message;
-import static util.UtilView.checkInputs;
+import static com.danilorocha.util.UtilView.messageDialog;
+import static com.danilorocha.util.UtilView.checkInputs;
 import java.time.LocalDateTime;
 
 /**
@@ -57,7 +57,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         labelTitleBar.setText("Projeto");
 
         labelSaveProject.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelSaveProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
+        labelSaveProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/check.png"))); // NOI18N
         labelSaveProject.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelSaveProjectMouseClicked(evt);
@@ -177,9 +177,9 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
                 Project project = newProject(null, name, description, 
                 LocalDateTime.now(), LocalDateTime.now());
                 projectController.save(project);
-                message(rootPane,"Salvo com sucesso");
+                messageDialog(rootPane,"Salvo com sucesso");
             } catch (Exception e) {
-                message(rootPane, "Não foi possível salvar o projeto");
+                messageDialog(rootPane, "Não foi possível salvar o projeto");
             } finally {
                 this.dispose();
             }
