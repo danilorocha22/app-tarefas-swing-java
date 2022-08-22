@@ -64,7 +64,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="labelTitleBar" pref="283" max="32767" attributes="0"/>
+                  <Component id="labelTitleBar" pref="280" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="labelSaveTask" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -122,7 +122,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="scrollPanelDescriptionTask" pref="340" max="32767" attributes="0"/>
+                      <Component id="scrollPanelDescriptionTask" pref="337" max="32767" attributes="0"/>
                       <Component id="labelNameTask" alignment="0" max="32767" attributes="0"/>
                       <Component id="inputNameTask" alignment="0" max="32767" attributes="0"/>
                       <Component id="labelDescriptionTask" alignment="0" max="32767" attributes="0"/>
@@ -222,7 +222,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPanelNotesTask" alignment="1" pref="340" max="32767" attributes="0"/>
+                      <Component id="scrollPanelNotesTask" alignment="1" pref="337" max="32767" attributes="0"/>
                       <Component id="labelDeadlineTask" alignment="0" max="32767" attributes="0"/>
                       <Component id="labelNotesTask" alignment="0" max="32767" attributes="0"/>
                       <Component id="inputDeadlineTask" alignment="0" max="32767" attributes="0"/>
@@ -241,7 +241,7 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="labelNotesTask" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrollPanelNotesTask" pref="276" max="32767" attributes="0"/>
+                  <Component id="scrollPanelNotesTask" pref="108" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
