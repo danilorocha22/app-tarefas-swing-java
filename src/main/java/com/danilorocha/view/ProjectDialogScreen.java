@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
  */
 public class ProjectDialogScreen extends javax.swing.JDialog {
 
-    private ProjectController projectController;
+    private final ProjectController projectController;
+    private Project project;
     
     /**
      * Creates new form ProjectDialogScreen
@@ -174,22 +175,39 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 
         if (checkInputs(rootPane, name, description)) {
             try {
-                Project project = newProject(null, name, description, 
-                LocalDateTime.now(), LocalDateTime.now());
-                projectController.save(project);
-                messageDialog(rootPane,"Salvo com sucesso");
-            } catch (Exception e) {
-                messageDialog(rootPane, "Não foi possível salvar o projeto");
-            } finally {
+                if (this.project == null) {
+                    Project newProject = newProject(null, name, description,
+                            LocalDateTime.now(), LocalDateTime.now());
+                    projectController.save(newProject);
+                    messageDialog(rootPane, "Projeto salvo com sucesso");
+                } else {
+                    Project updateProject = newProject(this.project.getId(), name, description, this.project.getCreateDate(),
+                            LocalDateTime.now());
+                    projectController.update(updateProject);
+                    messageDialog(rootPane, "Projeto atualizado com sucesso");
+                }
                 this.dispose();
+            } catch (Exception e) {
+                e.printStackTrace();
+                messageDialog(rootPane, "Não foi possível salvar o projeto");
             }
         }//if
     }//GEN-LAST:event_labelSaveProjectMouseClicked
 
+    public void setProject(Project project) {
+        this.project = project;
+        setInputs();
+    }
+
+    private void setInputs() {
+        inputNameProject.setText(this.project.getName());
+        textAreaDescriptionProject.setText(this.project.getDescription());
+    }
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

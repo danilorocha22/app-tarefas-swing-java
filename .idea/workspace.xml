@@ -7,9 +7,8 @@
     <list default="true" id="ae6ab47e-c54c-4432-9ad5-78cf5daa5633" name="Changes" comment="&quot;Atualização das classes ProjectRepository e Project&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/util/ButtonColumnCellRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/util/ButtonColumnCellRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/MainScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/ProjectDialogScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/ProjectDialogScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/danilorocha/view/TaskDialogScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -157,7 +156,8 @@
       <workItem from="1661080766258" duration="1572000" />
       <workItem from="1661083009799" duration="17782000" />
       <workItem from="1661117102432" duration="781000" />
-      <workItem from="1661167171283" duration="5435000" />
+      <workItem from="1661167171283" duration="5565000" />
+      <workItem from="1661214479387" duration="9956000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Atualização das classes ProjectRepository e Project&quot;">
       <created>1660779293464</created>
