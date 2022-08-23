@@ -12,9 +12,8 @@ public class DeadlineColumnCellRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                                                    int row, int column) {
-        JLabel jLabel;
         //Pega o componente padrão na classe pai
-        jLabel = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        JLabel jLabel = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         jLabel.setHorizontalAlignment(CENTER);
 
         TaskTableModel taskTableModel = (TaskTableModel) table.getModel();

@@ -8,12 +8,13 @@ import com.danilorocha.controllers.TaskController;
 import com.danilorocha.entities.Project;
 import com.danilorocha.entities.Task;
 
-import static com.danilorocha.entities.Task.newTask;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
+
+import static com.danilorocha.entities.Task.newTask;
 import static com.danilorocha.util.UtilView.checkInputs;
 import static com.danilorocha.util.UtilView.messageDialog;
 
@@ -44,19 +45,19 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelTitleBar = new javax.swing.JPanel();
-        labelTitleBar = new javax.swing.JLabel();
-        labelSaveTask = new javax.swing.JLabel();
-        panelNameDescriptionTask = new javax.swing.JPanel();
-        labelNameTask = new javax.swing.JLabel();
+        javax.swing.JPanel panelTitleBar = new javax.swing.JPanel();
+        javax.swing.JLabel labelTitleBar = new javax.swing.JLabel();
+        javax.swing.JLabel labelSaveTask = new javax.swing.JLabel();
+        javax.swing.JPanel panelNameDescriptionTask = new javax.swing.JPanel();
+        javax.swing.JLabel labelNameTask = new javax.swing.JLabel();
         inputNameTask = new javax.swing.JTextField();
-        labelDescriptionTask = new javax.swing.JLabel();
-        scrollPanelDescriptionTask = new javax.swing.JScrollPane();
+        javax.swing.JLabel labelDescriptionTask = new javax.swing.JLabel();
+        javax.swing.JScrollPane scrollPanelDescriptionTask = new javax.swing.JScrollPane();
         textAreaDescriptionTask = new javax.swing.JTextArea();
-        panelDeadlineNotesTask = new javax.swing.JPanel();
-        labelDeadlineTask = new javax.swing.JLabel();
-        labelNotesTask = new javax.swing.JLabel();
-        scrollPanelNotesTask = new javax.swing.JScrollPane();
+        javax.swing.JPanel panelDeadlineNotesTask = new javax.swing.JPanel();
+        javax.swing.JLabel labelDeadlineTask = new javax.swing.JLabel();
+        javax.swing.JLabel labelNotesTask = new javax.swing.JLabel();
+        javax.swing.JScrollPane scrollPanelNotesTask = new javax.swing.JScrollPane();
         textAreaNotesTask = new javax.swing.JTextArea();
         inputDeadlineTask = new javax.swing.JFormattedTextField();
 
@@ -350,17 +351,6 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField inputDeadlineTask;
     private javax.swing.JTextField inputNameTask;
-    private javax.swing.JLabel labelDeadlineTask;
-    private javax.swing.JLabel labelDescriptionTask;
-    private javax.swing.JLabel labelNameTask;
-    private javax.swing.JLabel labelNotesTask;
-    private javax.swing.JLabel labelSaveTask;
-    private javax.swing.JLabel labelTitleBar;
-    private javax.swing.JPanel panelDeadlineNotesTask;
-    private javax.swing.JPanel panelNameDescriptionTask;
-    private javax.swing.JPanel panelTitleBar;
-    private javax.swing.JScrollPane scrollPanelDescriptionTask;
-    private javax.swing.JScrollPane scrollPanelNotesTask;
     private javax.swing.JTextArea textAreaDescriptionTask;
     private javax.swing.JTextArea textAreaNotesTask;
     // End of variables declaration//GEN-END:variables

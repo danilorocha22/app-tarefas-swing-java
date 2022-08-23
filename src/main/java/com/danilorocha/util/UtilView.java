@@ -4,8 +4,7 @@
  */
 package com.danilorocha.util;
 
-import javax.swing.JOptionPane;
-import javax.swing.JRootPane;
+import javax.swing.*;
 
 /**
  *

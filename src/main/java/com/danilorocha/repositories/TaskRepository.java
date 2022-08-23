@@ -1,13 +1,14 @@
 package com.danilorocha.repositories;
 
 import com.danilorocha.connection.ConnectionFactory;
-import static com.danilorocha.connection.ConnectionFactory.getConnection;
 import com.danilorocha.entities.Task;
-import static com.danilorocha.entities.Task.newTask;
+
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.danilorocha.connection.ConnectionFactory.getConnection;
+import static com.danilorocha.entities.Task.newTask;
 
 public class TaskRepository {
 
@@ -22,9 +23,7 @@ public class TaskRepository {
                 "createDate, " +
                 "updateDate) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
-
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setLong(1, task.getIdProject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
@@ -34,7 +33,6 @@ public class TaskRepository {
             statement.setTimestamp(7, Timestamp.valueOf(task.getCreateDate()));
             statement.setTimestamp(8, Timestamp.valueOf(task.getUpdateDate()));
             statement.execute();
-
         } catch (Exception e) {
             throw new RuntimeException("Erro ao tentar salvar a tarefa", e);
         }//catch
@@ -53,9 +51,7 @@ public class TaskRepository {
                 "updateDate = ? " +
                 "WHERE id = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
-
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setLong(1, task.getId());
             statement.setLong(2, task.getIdProject());
             statement.setString(3, task.getName());
@@ -67,7 +63,6 @@ public class TaskRepository {
             statement.setTimestamp(9, Timestamp.valueOf(task.getUpdateDate()));
             statement.setLong(10, task.getId());
             statement.execute();
-
         } catch (Exception e) {
             throw new RuntimeException("Erro ao tentar atualizar a tarefa", e);
         }//catch
@@ -76,24 +71,20 @@ public class TaskRepository {
     public void removeById(Long taskId) {
         String sql = "DELETE FROM tasks WHERE id = ?";
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
-
+        try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement statement =
+                conn.prepareStatement(sql)) {
             statement.setLong(1, taskId);
             statement.execute();
-
         } catch (Exception e) {
             throw new RuntimeException("Erro ao tentar deletar a tarefa ", e);
         }//catch
     }//remove
 
     public List<Task> getAll(Long idProject) {
-        try (Connection conn = getConnection();
-             PreparedStatement statement = createPreparedStatement(conn, idProject);
+        try (Connection conn = getConnection(); PreparedStatement statement = createPreparedStatement(conn, idProject);
              ResultSet resultSet = statement.executeQuery()) {
 
             List<Task> tasks = new ArrayList<>();
-
             while (resultSet.next()) {
                 Task task = newTask(resultSet.getLong("id"), resultSet.getLong("idProject"),
                         resultSet.getString("name"), resultSet.getString("description"),
@@ -105,7 +96,6 @@ public class TaskRepository {
             }//while
 
             return tasks;
-
         } catch (Exception e) {
             throw new RuntimeException("Erro ao tentar visualizar todas as tarefas ", e);
         }//catch

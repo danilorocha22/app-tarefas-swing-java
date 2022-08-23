@@ -6,10 +6,12 @@ package com.danilorocha.view;
 
 import com.danilorocha.controllers.ProjectController;
 import com.danilorocha.entities.Project;
-import static com.danilorocha.entities.Project.newProject;
-import static com.danilorocha.util.UtilView.messageDialog;
-import static com.danilorocha.util.UtilView.checkInputs;
+
 import java.time.LocalDateTime;
+
+import static com.danilorocha.entities.Project.newProject;
+import static com.danilorocha.util.UtilView.checkInputs;
+import static com.danilorocha.util.UtilView.messageDialog;
 
 /**
  *
@@ -38,14 +40,14 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelTitleBar = new javax.swing.JPanel();
-        labelTitleBar = new javax.swing.JLabel();
-        labelSaveProject = new javax.swing.JLabel();
-        panelContentsProject = new javax.swing.JPanel();
-        labelNameProject = new javax.swing.JLabel();
+        javax.swing.JPanel panelTitleBar = new javax.swing.JPanel();
+        javax.swing.JLabel labelTitleBar = new javax.swing.JLabel();
+        javax.swing.JLabel labelSaveProject = new javax.swing.JLabel();
+        javax.swing.JPanel panelContentsProject = new javax.swing.JPanel();
+        javax.swing.JLabel labelNameProject = new javax.swing.JLabel();
         inputNameProject = new javax.swing.JTextField();
-        labelDescritionProject = new javax.swing.JLabel();
-        scrollPanelDescriptionProject = new javax.swing.JScrollPane();
+        javax.swing.JLabel labelDescritionProject = new javax.swing.JLabel();
+        javax.swing.JScrollPane scrollPanelDescriptionProject = new javax.swing.JScrollPane();
         textAreaDescriptionProject = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -248,13 +250,6 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField inputNameProject;
-    private javax.swing.JLabel labelDescritionProject;
-    private javax.swing.JLabel labelNameProject;
-    private javax.swing.JLabel labelSaveProject;
-    private javax.swing.JLabel labelTitleBar;
-    private javax.swing.JPanel panelContentsProject;
-    private javax.swing.JPanel panelTitleBar;
-    private javax.swing.JScrollPane scrollPanelDescriptionProject;
     private javax.swing.JTextArea textAreaDescriptionProject;
     // End of variables declaration//GEN-END:variables
 
